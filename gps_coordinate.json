@@ -1,0 +1,1 @@
+{"id": "FRZ-group-4", "costing": "pedestrian", "units": "miles", "costing_options": {"auto": {"country_crossing_penalty": 2000.0}}, "locations": [{"lat": 49.595962, "lon": 11.002857, "street": "Calvinstraße 1, 91054 Erlangen"}, {"lat": 49.596593, "lon": 11.007094, "street": "Untere Karlstraße, 91054 Erlangen"}]}
