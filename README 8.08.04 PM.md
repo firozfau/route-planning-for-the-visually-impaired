@@ -67,13 +67,17 @@ Project management:
   ```
  `APIDataProcessor.py`
   ```sh
-  In the 'APIDataProcessor.py' file, there are two classes: one is an abstract class, and the second one executes the Valhalla API, retrieving the necessary data.
+  In the 'APIDataProcessor.py' file, here all API realted work
   ```
 
- `gps_coordinate.json`
+ `BVIPSimulator.py`
    ```js
-    This file contains the information that we use as API parameters.
+    This file containt all BVIP simulator related task
    ```     
 
- For more details on Task 1, please visit the wiki link : ['Details in task-1'](https://gitlab.rrze.fau.de/rsu-vi/route-planning-for-the-visually-impaired/-/wikis/home/Task-1)
 
+
+ `How to check Last Issues`
+   ```js
+     '*' Open terminal then go to the roor directory and command: python main.py 
+   ```      
