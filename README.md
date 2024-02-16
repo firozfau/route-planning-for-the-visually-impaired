@@ -1,5 +1,3 @@
-# route-planning-for-the-visually-impaired
-
 In the initiative entitled "Road Scene Understanding for the Visually Impaired", our research team is meticulously advancing the development of the Sidewalk Environment Detection System for Assistive NavigaTION (hereinafter referred to as SENSATION). The primary objective of this venture is to enhance the mobility capabilities of blind or visually impaired persons (BVIPs) by ensuring safer and more efficient navigation on pedestrian pathways.
 For the implementation phase, a specialized apparatus has been engineered: a chest-mounted bag equipped with an NVIDIA Jetson Nano, serving as the core computational unit. This device integrates a plethora of sensors including, but not limited to, tactile feedback mechanisms (vibration motors) for direction indication, optical sensors (webcam) for environmental data acquisition, wireless communication modules (Wi-Fi antenna) for internet connectivity, and geospatial positioning units (GPS sensors) for real-time location tracking.
 Despite the promising preliminary design of the prototype, several technical challenges persist that warrant investigation.
@@ -26,60 +24,66 @@ Useful links for this project:
 
 To obtain information from Erlangen Hauptbahnhof to the University library located on the pedestrian walking street using the VALHALLA MAP API, please follow the correct syntax for your API requests. Ensure you include accurate details such as the starting point (Erlangen Hauptbahnhof), destination (University Library), and any necessary parameters specified by the VALHALLA MAP API documentation.
 
-Dependency: 
-* Python
-  ```sh
-  1. Visit python website and download  https://www.python.org/downloads/ 
-  2. Valhalla REST API: https://valhalla.github.io/valhalla/api/map-matching/api-reference/
-  3. Google map (For obtaining latitude and longitude as API parameters.)
-  ```
 
-Environment: 
-* route-planning-for-the-visually-impaired
-  ```sh
-  1. visit to GitLab location : https://gitlab.rrze.fau.de/rsu-vi/route-planning-for-the-visually-impaired
-  2. Find and select your profile and visit SSH keys tab
-  3. Add your public ssh key here for authorize access.
-  3. Then again go to project location "route-planning-for-the-visually-impaired"
-  4. copy SSH url: git@gitlab.rrze.fau.de:rsu-vi/route-planning-for-the-visually-impaired.git
-  5. Go to you local drive and select project location then open terminal and clone this SSH URL.
-  ```
-Project management: 
-* Clone the project 
-  ```sh
-  1. git clone  SSH-URL
-  2. git checkout group-4
-  3. git pull
-  ```
-* Manage project 
-  ```sh
-  1. git pull
-  2. git commit -m "write which purpose you update and add your source code"
-  3. git push origin group-4
-  ```
+# How to Check Task 8:
+Make sure you have `Mapillary-Vistas-1000-sidewalks` and `trainvaltest` folders on the same directory.
 
-* Project file description 
- `.env`
-  ```sh
-  This file is used to store all global variables that can be accessed from anywhere within this project.
+# How to check task 8
+
+`Step-1`
+
+   `Download base-model: base_model.pt`
+ ```sh
+https://faubox.rrze.uni-erlangen.de/getlink/fi6tDg9XWozkZXEuqUvZsH/base_model.pt
+ ```
+ `Download fine_tuned model: fine_tuned_model.pt`
+ ```sh
+https://faubox.rrze.uni-erlangen.de/getlink/fiLSDerrZkjWJeAJ4VMyLr/fine_tuned_model.pt
+ ```
+<br>
+
+`Step-2`
+
+   `Install dependencies`
+ ```sh
+   pip install -r requirements.txt 
+ ```
+<br>
+
+ `Step-3:Run convert_masks_to_grayscale.py` <br><br>
+ This file will convert the testing images in grayscale imamges for fine tuned model training.
+```sh
+python convert_masks_to_grayscale.py
+```
+<br>
+
+`Step-4: Run training_pipeline.py`
+```sh
+python training_pipeline.py
+
+```
+<br>
+
+`Step-5: Run inference.py`
+ ```sh
+'Usage:#' python inference.py path/to/model path/to/mapillaryImages path/to/mapillaryLabels OutputPath/to/ModelOutput OutputPath/to/binaryPredictions OutputPath/to/groundTruth 
   ```
- `main.py`
-  ```sh
-  The 'main.py' file serves as the primary file for this project, encompassing all dependency files and initializing the necessary variables, generating API links, and more.
+example: 1. For base model:
+ ```sh 
+python inference.py base_model.pt Mapillary-Vistas-1000-sidewalks/testing/images Mapillary-Vistas-1000-sidewalks/testing/labels base_model_output base_Predictions groundTruth
   ```
- `APIDataProcessor.py`
-  ```sh
-  In the 'APIDataProcessor.py' file, here all API realted work
+example: 2. For tuned model:
+ ```sh 
+python inference.py fine_tuned_model.pt Mapillary-Vistas-1000-sidewalks/testing/images Mapillary-Vistas-1000-sidewalks/testing/labels tuned_model_output tuned_Predictions groundTruth
   ```
+<br>
 
- `BVIPSimulator.py`
-   ```js
-    This file containt all BVIP simulator related task
-   ```     
+`Step-6: Run compute_IOU file:`
+ ```sh
+python compute_IOU.py base_Predictions tuned_Predictions groundTruth 
+ ```
 
-
-
- `How to check Last Issues`
-   ```js
-     '*' Open terminal then go to the roor directory and command: python main.py 
-   ```    
+`Out-put`:
+ ```sh
+Logs for both models have been successfully written to model-IOU.txt.
+  ```

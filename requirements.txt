@@ -1,0 +1,21 @@
+aiofiles
+gpxpy
+haversine
+huggingface-hub
+numpy
+opencv-python
+packaging
+pillow
+python-dotenv
+PyYAML
+requests
+segmentation-models-pytorch
+torch
+torchvision
+tqdm
+typing_extensions
+urllib3
+six
+scikit-learn 
+scikit-image
+# python3.11 -m pip install --upgrade pip
